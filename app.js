@@ -12,12 +12,6 @@ var fs = require( 'fs' );
 var express = require( 'express' );
 var app = module.exports = express.createServer( );
 
-send404 = function(res){
-	res.writeHead(404);
-	res.write('404');
-	res.end();
-};
-
 app.configure( function( ){
 	app.set( 'views', __dirname + '/views' );
 	app.set( 'view engine', 'jade' );
@@ -45,7 +39,7 @@ app.post( '/', function( req, res ) {
 			return error;
 		} else {
 			fs.readFile( config.output_base + 'asdf.obj', function( err, data ) {
-				if ( err ) return send404( res );
+				if ( err ) return res.render( '404' );
 				res.writeHead( 200, { 'Content-Type': 'text/plain' } );
 				res.end( data, 'utf8' );
 			});
