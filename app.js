@@ -24,11 +24,13 @@ app.get( '/', function( req, res ){
 });
 
 app.post( '/', function( req, res ) {
-	var x = req.body.loc.x,
-		y = req.body.loc.y,
-		z = req.body.loc.z,
-		;
+	var x = req.body.loc.x / 16,
+		y = req.body.loc.y / 16,
+		z = req.body.loc.z / 16,
+		size = req.body.size || config.size;
 	if ( config.debug ) console.log( "X: %d, Y: %d: Z: %d", x, y, z );
+
+
 });
 
 app.listen( 3000 );
