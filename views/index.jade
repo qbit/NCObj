@@ -1,15 +1,15 @@
-form( method='post' )
+form( id='form', method='post' )
   p
     label X:
-      input(name='loc[x]', value='', type='text')
+      input( name='x', value='0', type='text' )
   p
     label Y:
-      input(name='loc[y]', value='', type='text')
+      input( name='y', value='0', type='text' )
   p
     label Z:
-      input(name='loc[z]', value='', type='text')
+      input( name='z', value='0', type='text' )
   p
     label S:
-      input(name='size', value='20', type='text')
+      input( name='size', value='20', type='text' )
   p
-    input(value='Generate', type='submit')
+  input( id='submit', value='Generate', type='submit' )

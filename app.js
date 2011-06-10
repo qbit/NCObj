@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var config = {
 	world: "/home/mine/minecraft_server/world",
 	mcobj: __dirname + '/bin/mcobj',
@@ -26,14 +28,30 @@ app.get( '/', function( req, res ){
 });
 
 app.post( '/', function( req, res ) {
-	var x = req.body.loc.x / 16,
-		y = req.body.loc.y / 16,
-		z = req.body.loc.z / 16,
+	console.log( req.body );
+	var x = Math.floor( req.body.x / 16 ),
+		y = Math.floor( req.body.y / 16 ),
+		z = Math.floor( req.body.z / 16 ),
 		s = req.body.size || config.size;
 	if ( config.debug ) console.log( "X: %d, Y: %d: Z: %d", x, y, z );
-	var cmd = config.mcobj + " -x="+x+" -y="+y+" -z="+z+" -s="+s+" -o="+config.output_base + "asdf.obj";
-	console.log( "'%s'", cmd );
+	
+	var cmd = [
+		config.mcobj,
+		"-x=" + x,
+		"-y=" + y,
+		"-z=" +z,
+		"-cpu=" + config.cpu,
+		"-cx=" + x,
+		"-cz=" + z,
+		"-o=" + config.output_base + "asdf.obj",
+		config.world
+	].join( " " );
+
+
+	if ( config.debug ) console.log( "Command is: '%s'", cmd );
+
 	var child = exec( cmd, function( error, stdout, stdin ) {
+		if ( config.debug ) console.log( stdout );
 		if ( error )  {
 			console.log( error );
 			return error;
