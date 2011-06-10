@@ -28,11 +28,25 @@ app.get( '/', function( req, res ){
 });
 
 app.post( '/', function( req, res ) {
-	console.log( req.body );
+
+	var error = {};
+
+	if ( ! req.body.x.match( /^[-+]?[0-9]+(\.[0-9]+)?$|^[-]?[0-9]+$/ ) ) error.x = true;
+	if ( ! req.body.y.search( /^[-+]?[0-9]+(\.[0-9]+)?$|^[-]?[0-9]+$/ ) ) error.y = true;
+	if ( ! req.body.z.search( /^[-+]?[0-9]+(\.[0-9]+)?$|^[-]?[0-9]+$/ ) ) error.z = true;
+	if ( ! req.body.size.search( /^[-+]?[0-9]+$/ ) ) error.s = true;
+
+	if ( error.x || error.y || error.z || error.s ) {
+		console.log( error );
+		res.writeHead( 200, { 'Content-Type': 'text/plain' } );
+		return res.end( [ error ] );
+	}
+	
 	var x = Math.floor( req.body.x / 16 ),
 		y = Math.floor( req.body.y / 16 ),
 		z = Math.floor( req.body.z / 16 ),
 		s = req.body.size || config.size;
+
 	if ( config.debug ) console.log( "X: %d, Y: %d: Z: %d", x, y, z );
 	
 	var cmd = [
@@ -63,6 +77,7 @@ app.post( '/', function( req, res ) {
 			});
 		}
 	});
+
 });
 
 app.listen( 3000 );
