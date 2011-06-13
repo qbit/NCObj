@@ -73,14 +73,9 @@ app.post( '/', function( req, res ) {
 				var d = {};
 				d.objFile = '/tmp/' + req.session.lastAccess + '.obj';
 				d.mtlFile = '/tmp/' + req.session.lastAccess + '.mtl';
-				console.log( d );
+
 				res.writeHead( 200, { 'Content-Type': 'application/json' } );
 				res.end( JSON.stringify( d ) );
-				// fs.readFile( config.output_base + req.session.lastAccess + '.obj', function( err, data ) {
-				// 	if ( err ) return res.render( '404' );
-				// 	res.writeHead( 200, { 'Content-Type': 'text/plain' } );
-				// 	res.end( data, 'utf8' );
-				// });
 			}
 		});
 	}

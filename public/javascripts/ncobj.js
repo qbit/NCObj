@@ -1,5 +1,6 @@
 $( document ).ready( function() {
 	$( '#msg' ).html( 'Please wait... Generating obj file....' );
+	$( '#msg' ).hide();
 	$( '#submit' ).click( function() {
 		var o = {};
 		$( '#form :input' ).each( function() {
@@ -11,10 +12,11 @@ $( document ).ready( function() {
 		$.post( '/', o, function( data ) {
 			$( '#msg' ).hide( 'slow' );
 			$( '#dl' ).show( 'slow' );
+			var l = $( '<ul>' );
 			for ( var d in data ) {
-				$( '#dl' ).append( $( '<a>' ).attr( 'href', data[d] ).html( data[d] ) );
-				$( 'dl' ).append( $( '<br>' ));
+				l.append( $( '<li>' ).append( $( '<a>' ).attr( 'href', data[d] ).html( data[d] ) ) );
 			}
+			$( '#dl' ).append( l );
 		});
 
 		return false;
