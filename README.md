@@ -1,9 +1,12 @@
-NCObj Web Frontend for mcobj
-============================
+NCObj 
+=====
+
+A web frontend for mcobj
 
 - Author: Aaron Bieber
 
-## Installation
+Installation
+============
 
 ### Requirements
 	Node.JS
@@ -12,7 +15,7 @@ NCObj Web Frontend for mcobj
 ### Download / Run
 	git clone git://github.com/qbit/NCObj.git
 	cd NCObj
-	'modify the config variable in app.js.'
+	*modify the config variable in app.js*
 	node app.js
 	open http://whatevs:3000
 
