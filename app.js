@@ -5,7 +5,7 @@ var config = {
 	mcobj: __dirname + '/bin/mcobj',
 	cpu: 2,
 	size: 20,
-	output_base: __dirname + '/public/tmp/',
+	output_base: __dirname + '/public/output/',
 	debug: true
 };
 
@@ -79,26 +79,30 @@ app.post( '/', function( req, res ) {
 
 		if ( config.debug ) console.log( "Command is: '%s'", cmd );
 
-		if ( has_existing( file_name ) && ! overwrite ) {
+		res.writeHead( 200, { 'Content-Type': 'application/json' } );
+
+		if ( config.debug ) console.log( "exists: %s, overwrite: %s", has_existing( file_name ), overwrite );
+
+		if ( overwrite === '0' && has_existing( file_name ) ) {
 			if ( config.debug ) console.log( "Sending existing files: %s", file_name );
 			var d = {};
-			d.objFile = '/tmp/' + file_name + '.obj';
-			d.mtlFile = '/tmp/' + file_name + '.mtl';
+			d.objFile = '/output/' + file_name + '.obj';
+			d.mtlFile = '/output/' + file_name + '.mtl';
 
-			res.writeHead( 200, { 'Content-Type': 'application/json' } );
 			res.end( JSON.stringify( d ) );
 		} else {
 			if ( config.debug ) console.log( "Generating new files: %s", file_name );
-			var child = exec( cmd, function( error, stdout, stdin ) {
+			var child = exec( cmd, function( error, stdout, stderr ) {
 				if ( error )  {
 					console.log( error );
-					return error;
+					// return error;
+					res.end( JSON.stringify( { error: "Can't execute command" } ) );
 				} else {
 					var d = {};
-					d.objFile = '/tmp/' + file_name + '.obj';
-					d.mtlFile = '/tmp/' + file_name + '.mtl';
+					d.objFile = '/output/' + file_name + '.obj';
+					d.mtlFile = '/output/' + file_name + '.mtl';
 
-					res.writeHead( 200, { 'Content-Type': 'application/json' } );
+					// res.writeHead( 200, { 'Content-Type': 'application/json' } );
 					res.end( JSON.stringify( d ) );
 				}
 			});

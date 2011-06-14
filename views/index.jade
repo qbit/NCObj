@@ -1,20 +1,30 @@
 div( id='msg' )
+  br
+  | Please wait while I generate your obj file..
+  br
+  br
+  img( src="/images/loading.gif" )
+
+div( id='overlay' )
+
+div( id='container' )
+  div( id='inp' )
+    form( id='form', method='post' )
+      p
+        label X:
+          input( name='x', value='0', type='text' )
+      p
+        label Y:
+          input( name='y', value='0', type='text' )
+      p
+        label Z:
+          input( name='z', value='0', type='text' )
+      p
+        label S:
+          input( name='size', value='20', type='text' )
+      p 
+        label Overwrite existing files: 
+          input( name='overwrite', type='checkbox' )
+      p
+      input( id='submit', value='Generate', type='submit' )
 div( id='dl' )
-form( id='form', method='post' )
-  p
-    label X:
-      input( name='x', value='0', type='text' )
-  p
-    label Y:
-      input( name='y', value='0', type='text' )
-  p
-    label Z:
-      input( name='z', value='0', type='text' )
-  p
-    label S:
-      input( name='size', value='20', type='text' )
-  p 
-    label Overwrite existing files: 
-      input( name='overwrite', type='checkbox' )
-  p
-  input( id='submit', value='Generate', type='submit' )
